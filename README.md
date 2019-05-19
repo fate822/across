@@ -22,6 +22,29 @@ bbr.sh
 
 - Description: Auto install latest kernel for TCP BBR
 - Intro: https://teddysun.com/489.html
+懒。。。
+wget --no-check-certificate https://github.com/fate822/across/raw/master/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+
+验证
+uname -r
+查看内核版本，显示为最新版就表示 OK 了
+
+sysctl net.ipv4.tcp_available_congestion_control
+返回值一般为：
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+或者为：
+net.ipv4.tcp_available_congestion_control = reno cubic bbr
+
+sysctl net.ipv4.tcp_congestion_control
+返回值一般为：
+net.ipv4.tcp_congestion_control = bbr
+
+sysctl net.core.default_qdisc
+返回值一般为：
+net.core.default_qdisc = fq
+
+lsmod | grep bbr
+返回值有 tcp_bbr 模块即说明 bbr 已启动。注意：并不是所有的 VPS 都会有此返回值，若没有也属正常。
 
 kms.sh
 ======
